@@ -1,0 +1,57 @@
+{% extends "bbs/base.html" %}
+{% block main %}
+            <div class="row">
+            {% if request.user.is_authenticated %}
+
+
+
+
+
+
+            {% else %}
+                <div class="col-md-6">
+                <a class="btn btn-primary btn-block btn-dark" href="/login" role="button">登陆</a>
+                </div>
+                <div class="col-md-6">
+                <a class="btn btn-primary btn-block btn-warning" href="/register" role="button">注册</a>
+                </div>
+            {% endif %}
+            </div>
+    <div class="jumbotron" style="background-image: url('/static/bbs/css/banner.jpg');-webkit-background-size: 110%;background-size: 110%;">
+
+    </div>
+            <div class="row">
+            {% if request.user.is_authenticated %}
+
+                    <div class="col-md-8">
+                    <a class="btn btn-primary btn-block btn-success" href="/article/post" role="button">我要发帖</a>
+                </div>
+            {% endif %}
+
+    <div class="container outer">
+        <div style="text-align: center;font-weight: bold;">最新发布</div>
+
+
+            <div class="row text-info" style="">
+                <div class="col-md-2 li text-info" style="background-color: aliceblue">栏目</div>
+                <div class="col-md-6 li text-info" style="background-color: aliceblue">标题</div>
+                <div class="col-md-2 li text-info" style="background-color: aliceblue">作者</div>
+                <div class="col-md-2 li text-info" style="background-color: aliceblue">时间</div>
+
+            </div>
+
+                {% for i in  articles reversed %}
+                <div class="row">
+                <div class="col-md-2 li">{{ i.category }}</div>
+                    <div class="col-md-6 li" style="font-weight: 600;" ><a href="article/{{ i.id }}" style="color: steelblue    ">{{ i.title }}</a></div>
+                    <div class="col-md-2 li">{{ i.author }}</div>
+                    <div class="col-md-2 li" >{{ i.posttime|date:"m/d H:i"  }}</div>
+
+
+
+
+                </div>
+            {% endfor %}
+            </div>
+
+{% endblock %}

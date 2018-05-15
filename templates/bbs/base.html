@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>社会人的BBS</title>
+
+    {% load static %}
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    {% block js1 %}
+    {% endblock %}
+    <link rel="stylesheet" href="/static/bbs/css/main.css">
+
+</head>
+<body style="padding: 50px; ">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+      <a class="navbar-brand" href="#">One Piece</a>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页 </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/forum/2/">Linux</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/forum/3/">WEB框架</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/forum/4/">爬虫</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/forum/5/">数据分析</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/forum/6/">数据库</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/forum/7/" style="color: red">胡说八道的地方</a>
+          </li>
+        </ul>
+        {% if request.user.is_authenticated %}
+            <ul class="navbar-nav pull-right">
+                <li class="nav-item"><a class="nav-link" href="/article/post">写文章</a></li>
+                <li class="nav-item" style="color: white"><a class="nav-link" href="">{{ request.user.userprofile.name }},赶紧干活！</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">退出登陆</a></li>
+                <li class="nav-item"></li>
+            </ul>
+        {% else %}
+        <ul class="navbar-nav pull-right">
+        <li class="nav-item">
+          <a href="/login" class="nav-link">登陆</a>
+        </li>
+        </ul>
+          {% endif %}
+      </div>
+
+
+
+    </nav>
+
+<div class="container outer" style="margin-top: 20px;">
+
+
+        {% block main %}
+                        {% if request.user.is_authenticated %}
+                <div class="row" style="margin-bottom: 1em;">
+                <div class="col-md-8" style="margin-left: -15px;">
+                    <a class="btn btn-primary btn-block btn-success" href="/article/post" role="button">我要发帖</a>
+                </div>
+                </div>
+
+            {% endif%}
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-1 li" style="background-color: aliceblue">回复</div>
+                <div class="col-md-4 li" style="background-color: aliceblue">主题</div>
+                <div class="col-md-2 li" style="background-color: aliceblue">作者</div>
+                <div class="col-md-2 li" style="background-color: aliceblue">发布时间</div>
+                <div class="col-md-2 li" style="background-color: aliceblue">回复</div>
+
+
+
+
+                </div>
+            {% for i in  articles reversed %}
+                <div class="row">
+                    <div class="col-md-1 li">{{ i.comment_set.select_related.count }}</div>
+                    <div class="col-md-4 li"><a href="/article/{{ i.id }}">{{ i.title|truncatewords:"10" }}</a></div>
+                    <div class="col-md-2 li">{{ i.author}}</div>
+                    <div class="col-md-2 li">{{ i.posttime|date:"Y/m/d H:i"  }}</div>
+                    <div class="col-md-2 li">{{ i.comment_set.last.posttime|date:"m/d H:i" }}</div>
+
+
+                </div>
+            {% endfor %}
+
+        {% endblock %}
+
+    </div>
+
+
+<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+
+    </nav>
+  </body>
+{% block js %}
+{% endblock %}
+<script>
+    $(document).ready(function(){
+        $(".navbar-nav a[href='{{request.path}}']").parent().addClass("active");
+
+    })
+
+</script>
+</html>

@@ -1,0 +1,65 @@
+{% extends "bbs/base.html" %}
+{% block js1 %}
+    <script src="https://cdn.bootcss.com/ckeditor/4.9.2/ckeditor.js"></script>
+    <script src="https://cdn.bootcss.com/ckeditor/4.9.2/lang/zh-cn.js"></script>
+{% endblock %}
+{% block main%}
+    {% if request.user.is_authenticated %}
+
+            <div class="row" style="width:90%;">
+            <div class="col-md-12">
+
+                <form enctype="multipart/form-data" method="post" action="/article/post/">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">文章标题</label>
+
+                        <input type="text" name="title" class="form-control" placeholder="文章标题" required="" maxlength="80" >
+
+                    </div>
+                    <div class="form-group">
+                        <label for="category">板块
+                        <select class="form-control " name="category" required="">
+                            <option selected="selected" disabled="disabled"  style='display: none'></option>
+                            {% for i in categories %}
+                                {% ifnotequal forloop.counter 1%}
+                              <option>{{ i.name }}</option>
+                                {% endifnotequal %}
+                            {% endfor %}
+                        </select>
+                        </label>
+                    </div>
+{#                    <div class="form-group">#}
+{#                        <label for="exampleInputFile">File input</label>#}
+{#                        <input type="file" id="exampleInputFile">#}
+{#                    </div>#}
+                    <div class="form-group">
+                        <label for="content">
+                        <textarea class="form-control"   name="content" id="ckeditor"></textarea>
+                        </label>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6"><button type="submit" class="btn btn-block btn-dark">提交</button></div>
+                    <div class="col-md-6"><input type="button" class="btn btn-warning btn-block" value="重置" onclick="window.location.reload();"></div>
+                    </div>
+                    </form>
+
+            </div>
+            </div>
+
+
+
+
+    {% else %}
+        请先登陆
+    {% endif %}
+{% endblock %}
+{% block js%}
+    <script>
+    $(document).ready(function(){
+        CKEDITOR.replace('ckeditor', { skin : 'kama', height : 300, width : 960});
+
+
+        }
+    )
+    </script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{%extends  'bbs/base.html' %}
+{% block js1 %}
+    <script src="https://cdn.bootcss.com/ckeditor/4.9.2/ckeditor.js"></script>
+    <script src="https://cdn.bootcss.com/ckeditor/4.9.2/lang/zh-cn.js"></script>
+{% endblock %}
+{% block main %}
+            <div class="col-md-12 ali">
+            <p>{{ article.category}}</p>
+        </div>
+    <div class="row" >
+
+        <div class="col-md-12 ali" style="background-color: rgba(52,58,64,0.4);color: white;border-radius: 5px;">
+            <p>标题：{{ article.title}}</p>
+        </div>
+    </div>
+    <div class="row outer" >
+            <div class="col-md-2">
+                <div class="ali">
+                <p>作者：{{ article.author}}</p>
+                </div>
+                <div class="ali">
+                    {{ article.posttime|date}}<br><br>
+                {{ article.posttime|time}}
+                </div>
+            </div>
+            <div class="col-md-10  ali" style="text-align: left;">
+                {% autoescape off %}
+                    {{ article.content}}
+                {% endautoescape %}
+
+            </div>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="row outer">
+            <div class="col-md-2">
+                <div class="ali">
+                <p>你好</p>
+                </div>
+                <div class="ali">
+                    <br>
+                    {{ request.user.userprofile.name }}<br><br>
+
+            </div>
+            </div>
+            <div class="col-md-10">
+                    <form method="post" action="/reply/{{ article.id }}">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="content">
+                        <textarea class="form-control"   name="comment" id="ckeditor"></textarea>
+                        </label>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12"><button type="submit" class="btn btn-block btn-dark">回复</button></div>
+                    </div>
+                    </form>
+
+            </div>
+            </div>
+    {% endif %}
+    {%for i in comments%}
+            <div class="row" >
+
+        <div class="col-md-12 ali" style="background-color: rgba(52,58,64,0.4);color: white;border-radius: 5px;">
+            <p>标题：{{ article.title}}</p>
+        </div>
+    </div>
+    <div class="row outer" style="padding-bottom: 5px;">
+            <div class="col-md-2">
+                <div class="ali">
+                <p>作者：{{ i.author}}</p>
+                </div>
+                <div class="ali">
+                    {{ i.posttime|date}}<br><br>
+                {{ i.posttime|time}}
+                </div>
+            </div>
+            <div class="col-md-10  ali" style="text-align: left;font-weight: 600;">
+                {% autoescape off %}
+                    {{ i.comment }}
+                {% endautoescape %}
+            </div>
+    </div>
+
+    {% endfor %}
+{% endblock %}
+{% block js%}
+    <script>
+    $(document).ready(function(){
+        CKEDITOR.replace('ckeditor', { skin : 'kama', height : 200, width : 900});
+
+
+        }
+    )
+    </script>
+{% endblock %}

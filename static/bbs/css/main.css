@@ -1,0 +1,43 @@
+div.outer{
+    border-radius: 10px;
+    padding: 30px 22px;
+    box-shadow: 2px 2px 5px #BEBEBE;
+}
+a{
+    color: black;
+}
+a:hover {
+    text-decoration: none;
+}
+div.li{
+
+    border-left:1px dashed lightgrey;
+    border-bottom: 2px solid darkgrey;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px #BEBEBE;
+    margin: 5px -1px;
+    text-align: center;
+    color:darkslategrey;
+    height: 2.2em;
+
+}
+div.ali{
+
+    border-left:1px dashed lightgrey;
+    border-bottom: 2px solid darkgrey;
+    border-radius: 15px;
+    box-shadow: 1px 2px 4px #BEBEBE;
+    margin: 5px -1px;
+    text-align: center;
+    color:darkslategrey;
+
+
+}
+.input-group-addon{
+        display: inline-block;
+        width: 300px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.5em;
+        line-height: 2em;
+}

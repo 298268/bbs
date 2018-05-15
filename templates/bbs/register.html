@@ -1,0 +1,44 @@
+{% extends "bbs/base.html" %}
+{% block js1 %}
+    <script src="https://cdn.bootcss.com/jqBootstrapValidation/1.3.7/jqBootstrapValidation.js"></script>
+{% endblock %}
+{% block main %}
+    <div class="container">
+
+      <form class="form-signin" method="post">
+          {% csrf_token %}
+            <h2 class="form-signin-heading" align="center">注册</h2>
+            <div class="control-group input-group input-group-lg" style="padding-bottom: 3em;">
+                <span class="input-group-addon">用户名</span>
+                <input type="text" name="username" class="form-control" placeholder="Username" required="" maxlength="10">
+                <p class="help-block"></p>
+            </div>
+          <div class="control-group input-group input-group-lg" style="padding-bottom: 3em;">
+                <span class="input-group-addon">密码</span>
+                <input type="password" name="password" class="form-control" placeholder="Password" required="" maxlength="20">
+                <p class="help-block"></p>
+            </div>
+
+        <div class="control-group input-group input-group-lg" style="padding-bottom: 3em;">
+                <span class="input-group-addon" >确认密码</span>
+                <input type="password" class="form-control" placeholder="Password" required="" maxlength="20" data-validation-match-match="password" data-validation-match-message="password not match" >
+                <p class="help-block"></p>
+            </div>
+
+          <div class="control-group input-group input-group-lg" style="padding-bottom: 3em;">
+                <span class="input-group-addon">邮箱</span>
+                <input type="email" name="email" class="form-control" placeholder="298268@qq.com" required="" maxlength="30">
+                 <p class="help-block"></p>
+            </div>
+
+
+        <button class="btn btn-lg btn-dark btn-block" type="submit">注册</button>
+          <p style="color: red;font-size: 24px;" align="center">{{ err }}</p>
+      </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+      $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+    </script>
+{% endblock %}

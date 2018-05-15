@@ -1,0 +1,22 @@
+{% extends "bbs/base.html" %}
+{% block main %}
+    <div class="container">
+
+      <form class="form-signin" method="post">
+          {% csrf_token %}
+        <h2 class="form-signin-heading" align="center">请登陆</h2>
+        <div class="input-group input-group-lg">
+                <span class="input-group-addon" style="width: 100px;">用户名</span>
+        <input type="text" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+        </div>
+        <div class="input-group input-group-lg">
+                <span class="input-group-addon" style="width: 100px;">密码</span>
+        <input type="password" name="password" class="form-control" placeholder="Password" required="">
+        </div>
+
+        <button class="btn btn-lg btn-dark btn-block" type="submit">登陆</button>
+          <p style="color: red">{{ err }}</p>
+      </form>
+
+    </div>
+{% endblock %}
